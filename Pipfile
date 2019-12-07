@@ -12,5 +12,8 @@ pytest = "*"
 
 [packages]
 
+[scripts]
+format = 'yapf --recursive -i examples'
+
 [requires]
 python_version = "3.7"
