@@ -14,7 +14,7 @@ def main() -> None:
 
     word_embeddings = [
         embeddings.WordEmbeddings('glove'),
-   ]
+    ]
 
     document_embeddings = embeddings.DocumentRNNEmbeddings(
         word_embeddings,
@@ -24,7 +24,7 @@ def main() -> None:
     )
 
     classifier = models.TextClassifier(document_embeddings,
-                                label_dictionary=label_dict)
+                                       label_dictionary=label_dict)
 
     trainer = trainers.ModelTrainer(classifier, corpus)
 
@@ -38,7 +38,8 @@ def main() -> None:
     plotter = Plotter()
     plotter.plot_weights('resources/taggers/ag_news/weights.txt')
 
-    classifier = TextClassifier.load('resources/taggers/ag_news/final-model.pt')
+    classifier = TextClassifier.load(
+        'resources/taggers/ag_news/final-model.pt')
     s = input('Input your own sentence, please: ')
     sentence = Sentence(s)
     classifier.predict(sentence)

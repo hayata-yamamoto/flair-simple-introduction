@@ -9,6 +9,8 @@ flair = "*"
 mypy = "*"
 flake8 = "*"
 pytest = "*"
+tqdm = "*"
+scikit-learn = "*"
 
 [packages]
 
