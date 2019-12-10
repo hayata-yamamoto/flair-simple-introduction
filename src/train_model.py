@@ -1,9 +1,4 @@
-from flair import (
-    embeddings,
-    datasets,
-    models,
-    trainers,
-)
+from flair import datasets, embeddings, models, trainers
 from flair.visual.training_curves import Plotter
 
 

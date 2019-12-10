@@ -1,20 +1,30 @@
-from fastapi import FastAPI
 import joblib
-from sklearn.neural_network import MLPClassifier
-from flair.models import TextClassifier
+from flask import Flask, jsonify, request
 from flair.embeddings import Sentence
+from flair.models import TextClassifier
+from sklearn import neural_network
 
-app = FastAPI()
-# sk_clf = joblib.load('./resources/sklearn/model.joblib')
-fl_clf = TextClassifier.load('./resources/taggers/ag_news/best-model.pt')
+from src.path_handler import PathHandler
+
+app = Flask(__name__)
+sk = joblib.load(str(PathHandler.RESOURCES / 'sklearn' / 'model.joblib'))
+fl = TextClassifier.load(
+    str(PathHandler.RESOURCES / 'taggers' / 'ag_news' / 'final-model.pt'))
 
 
-@app.get("/api/v1/flair-model")
-async def flair_infer(doc: str):
-    s = Sentence(doc)
-    return fl_clf.predict(s)
+@app.route("/api/v1/flair-model", methods=['get'])
+def flair_infer():
+    print(request.json)
+    s = Sentence(request.json['message'])
+    fl.predict(s)
+    res = {'label': s.labels[0].value}
+    return jsonify(res), 200
 
 
-@app.get("/api/v1/sklearn-model")
-async def sklearn_infer(doc: str):
+@app.route("/api/v1/sklearn-model", methods=['get'])
+def sklearn_infer():
     pass
+
+
+if __name__ == '__main__':
+    app.run()

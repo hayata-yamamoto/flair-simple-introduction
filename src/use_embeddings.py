@@ -1,10 +1,11 @@
-import numpy as np
-from flair import embeddings
-from sklearn import datasets, neural_network, metrics
-from tqdm import tqdm
-import joblib
 from pathlib import Path
 
+import joblib
+import numpy as np
+from flair import embeddings
+from sklearn import datasets, metrics, neural_network
+from tqdm import tqdm
+from src.path_handler import PathHandler
 
 def embed_by_model(s: str, e: embeddings.DocumentEmbeddings) -> np.ndarray:
     sent = embeddings.Sentence(s)
@@ -31,10 +32,12 @@ def main() -> None:
                                        max_iter=10,
                                        verbose=True)
     clf.fit(x_train, y_train)
-    Path(__file__).resolve().parents[1].joinpath('resources', 'sklearn').mkdir(
-        parents=True, exist_ok=True)
-    joblib.dump(clf, 'resources/sklearn/model.joblib')
+    p = PathHandler.RESOURCES / 'sklearn'
+    p.mkdir(exist_ok=True, parents=True)
 
+    joblib.dump(clf, str(p / 'model.joblib'))
+    
+    clf = joblib.load(str(p / 'model.joblib'))
     y_pred = clf.predict(x_test)
     print(metrics.classification_report(y_test, y_pred))
 
