@@ -2,6 +2,8 @@ import numpy as np
 from flair import embeddings
 from sklearn import datasets, neural_network, metrics
 from tqdm import tqdm
+import joblib
+from pathlib import Path
 
 
 def embed_by_model(s: str, e: embeddings.DocumentEmbeddings) -> np.ndarray:
@@ -26,8 +28,12 @@ def main() -> None:
     clf = neural_network.MLPClassifier(hidden_layer_sizes=(100, ),
                                        early_stopping=True,
                                        random_state=12345,
+                                       max_iter=10,
                                        verbose=True)
     clf.fit(x_train, y_train)
+    Path(__file__).resolve().parents[1].joinpath('resources', 'sklearn').mkdir(
+        parents=True, exist_ok=True)
+    joblib.dump(clf, 'resources/sklearn/model.joblib')
 
     y_pred = clf.predict(x_test)
     print(metrics.classification_report(y_test, y_pred))

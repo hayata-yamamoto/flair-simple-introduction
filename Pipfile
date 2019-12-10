@@ -11,6 +11,9 @@ flake8 = "*"
 pytest = "*"
 tqdm = "*"
 scikit-learn = "*"
+joblib = "*"
+fastapi = "*"
+isort = "*"
 
 [packages]
 
