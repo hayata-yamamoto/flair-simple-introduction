@@ -7,8 +7,9 @@ def main() -> None:
     x_train, y_train = fetch_20newsgroups(return_X_y=True)
     x_test, y_test = fetch_20newsgroups(return_X_y=True)
 
-    df = pd.Datetime([x_train, y_train], columns=['text', 'y'])
+    df = pd.concat([x_train, y_train], axis=1)
     print(df.head())
+
 
 if __name__ == '__main__':
     main()
