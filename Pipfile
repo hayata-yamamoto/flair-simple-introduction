@@ -19,7 +19,9 @@ flask = "*"
 [packages]
 
 [scripts]
-format = 'yapf --recursive -i examples'
+format = 'yapf --recursive -i'
+setup = 'python3 setup.py develop'
+
 
 [requires]
 python_version = "3.7"

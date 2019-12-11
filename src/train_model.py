@@ -1,6 +1,8 @@
 from flair import datasets, embeddings, models, trainers
 from flair.visual.training_curves import Plotter
 
+from src.path_handler import PathHandler
+
 
 def main() -> None:
     corpus = datasets.TREC_6()
@@ -23,20 +25,20 @@ def main() -> None:
 
     trainer = trainers.ModelTrainer(classifier, corpus)
 
-    trainer.train('resources/taggers/ag_news',
+    trainer.train(str(PathHandler.RESOURCES / 'ag_news'),
                   learning_rate=0.1,
                   mini_batch_size=32,
                   anneal_factor=0.5,
                   patience=5,
                   max_epochs=10)
 
+    p = PathHandler.RESOURCES / 'ag_news'
     plotter = Plotter()
-    plotter.plot_weights('resources/taggers/ag_news/weights.txt')
+    plotter.plot_weights(str(p / 'weights.txt'))
 
-    classifier = TextClassifier.load(
-        'resources/taggers/ag_news/final-model.pt')
-    s = input('Input your own sentence, please: ')
-    sentence = Sentence(s)
+    classifier = models.TextClassifier.load(str(p / 'final-model.pt'))
+    s = 'This is a sample sentence'
+    sentence = embeddings.Sentence(s)
     classifier.predict(sentence)
     print(sentence.labels)
 

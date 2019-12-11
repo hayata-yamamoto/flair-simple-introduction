@@ -17,3 +17,11 @@ The purpose of this repository is to show flair usage, which I wrote on my artic
 - src/use_embeddings.py # how to use pretrained model with sklearn
 - main.py # flask
 
+## Usage 
+
+Since Pipfile.lock is available, you just do 
+
+```sh
+$ pip3 install pipenv 
+$ pipenv sync --dev
+```
