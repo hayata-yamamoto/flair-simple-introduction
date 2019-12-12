@@ -1,4 +1,5 @@
 import pickle
+from typing import Dict
 
 import numpy as np
 from fastapi import FastAPI
@@ -19,13 +20,13 @@ app = FastAPI()
 
 
 @app.get("/api/v1/flair")
-async def flair_infer(q: str):
+async def flair_infer(q: str) -> Dict[str, str]:
     s = Sentence(q)
     fl.predict(s)
     return {'label': s.labels[0].value}
 
 
 @app.get("/api/v1/sklearn")
-async def sklearn_infer(q: str):
+async def sklearn_infer(q: str) -> Dict[str, int]:
     vec = embed_by_model(q, em)[:, np.newaxis].T
     return {"label": int(sk.predict(vec)[0])}
