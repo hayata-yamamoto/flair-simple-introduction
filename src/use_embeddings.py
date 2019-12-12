@@ -1,5 +1,6 @@
-from pathlib import Path
 import pickle
+from pathlib import Path
+
 import numpy as np
 from flair import embeddings
 from sklearn import datasets, metrics, neural_network

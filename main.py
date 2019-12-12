@@ -1,7 +1,8 @@
 import pickle
+
 import numpy as np
 from fastapi import FastAPI
-from flair.embeddings import Sentence, WordEmbeddings, DocumentPoolEmbeddings
+from flair.embeddings import DocumentPoolEmbeddings, Sentence, WordEmbeddings
 from flair.models import TextClassifier
 from sklearn import neural_network
 
