@@ -4,7 +4,6 @@ import numpy as np
 from fastapi import FastAPI
 from flair.embeddings import DocumentPoolEmbeddings, Sentence, WordEmbeddings
 from flair.models import TextClassifier
-from sklearn import neural_network
 
 from src.path_handler import PathHandler
 from src.use_embeddings import embed_by_model
