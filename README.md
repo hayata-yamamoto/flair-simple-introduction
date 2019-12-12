@@ -1,8 +1,5 @@
 # flair-simple-introduction
 
-[![Actions Status](https://github.com/hayata-yamamoto/flair-simple-introduction/workflows/build/badge.svg)](https://github.com/hayata-yamamoto/flair-simple-introduction/actions)
-
-
 ## What's this? 
 
 The purpose of this repository is to show flair usage, which I wrote on my article. 
