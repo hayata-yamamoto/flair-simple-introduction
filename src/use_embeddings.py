@@ -1,6 +1,5 @@
 from pathlib import Path
-
-import joblib
+import pickle
 import numpy as np
 from flair import embeddings
 from sklearn import datasets, metrics, neural_network
@@ -35,9 +34,12 @@ def main() -> None:
     p = PathHandler.RESOURCES / 'sklearn'
     p.mkdir(exist_ok=True, parents=True)
 
-    joblib.dump(clf, str(p / 'model.joblib'))
+    with (p / 'model.pickle').open('wb') as f:
+        pickle.dump(clf, f)
 
-    clf = joblib.load(str(p / 'model.joblib'))
+    with (p / 'model.pickle').open('rb') as f:
+        clf = pickle.load(f)
+
     y_pred = clf.predict(x_test)
     print(metrics.classification_report(y_test, y_pred))
 

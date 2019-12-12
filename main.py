@@ -1,30 +1,31 @@
-import joblib
-from flask import Flask, jsonify, request
-from flair.embeddings import Sentence
+import pickle
+import numpy as np
+from fastapi import FastAPI
+from flair.embeddings import Sentence, WordEmbeddings, DocumentPoolEmbeddings
 from flair.models import TextClassifier
 from sklearn import neural_network
 
 from src.path_handler import PathHandler
+from src.use_embeddings import embed_by_model
 
-app = Flask(__name__)
-sk = joblib.load(str(PathHandler.RESOURCES / 'sklearn' / 'model.joblib'))
-fl = TextClassifier.load(
-    str(PathHandler.RESOURCES / 'taggers' / 'ag_news' / 'final-model.pt'))
+p = PathHandler.RESOURCES
+with (p / 'sklearn' / 'model.pickle').open('rb') as f:
+    sk = pickle.load(f)
+
+fl = TextClassifier.load(str(p / 'ag_news' / 'final-model.pt'))
+em = DocumentPoolEmbeddings([WordEmbeddings('glove')])
+
+app = FastAPI()
 
 
-@app.route("/api/v1/flair-model", methods=['get'])
-def flair_infer():
-    print(request.json)
-    s = Sentence(request.json['message'])
+@app.get("/api/v1/flair-model")
+async def flair_infer(q: str):
+    s = Sentence(q)
     fl.predict(s)
-    res = {'label': s.labels[0].value}
-    return jsonify(res), 200
+    return {'label': s.labels[0].value}
 
 
-@app.route("/api/v1/sklearn-model", methods=['get'])
-def sklearn_infer():
-    pass
-
-
-if __name__ == '__main__':
-    app.run()
+@app.get("/api/v1/sklearn-model")
+async def sklearn_infer(q: str):
+    vec = embed_by_model(q, em)[:, np.newaxis].T
+    return {"label": int(sk.predict(vec)[0])}

@@ -24,15 +24,15 @@ def main() -> None:
                                        label_dictionary=label_dict)
 
     trainer = trainers.ModelTrainer(classifier, corpus)
+    p = PathHandler.RESOURCES / 'ag_news'
 
-    trainer.train(str(PathHandler.RESOURCES / 'ag_news'),
+    trainer.train(str(p),
                   learning_rate=0.1,
                   mini_batch_size=32,
                   anneal_factor=0.5,
                   patience=5,
                   max_epochs=10)
 
-    p = PathHandler.RESOURCES / 'ag_news'
     plotter = Plotter()
     plotter.plot_weights(str(p / 'weights.txt'))
 
