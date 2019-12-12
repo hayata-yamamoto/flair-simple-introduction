@@ -23,6 +23,7 @@ uvicorn = "*"
 [scripts]
 format = 'yapf --recursive -i'
 setup = 'python3 setup.py develop'
+api = 'uvicorn main:app --reload'
 
 [requires]
 python_version = "3.7"

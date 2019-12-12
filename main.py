@@ -18,14 +18,14 @@ em = DocumentPoolEmbeddings([WordEmbeddings('glove')])
 app = FastAPI()
 
 
-@app.get("/api/v1/flair-model")
+@app.get("/api/v1/flair")
 async def flair_infer(q: str):
     s = Sentence(q)
     fl.predict(s)
     return {'label': s.labels[0].value}
 
 
-@app.get("/api/v1/sklearn-model")
+@app.get("/api/v1/sklearn")
 async def sklearn_infer(q: str):
     vec = embed_by_model(q, em)[:, np.newaxis].T
     return {"label": int(sk.predict(vec)[0])}
