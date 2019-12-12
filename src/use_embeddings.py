@@ -1,5 +1,4 @@
 import pickle
-from pathlib import Path
 
 import numpy as np
 from flair import embeddings

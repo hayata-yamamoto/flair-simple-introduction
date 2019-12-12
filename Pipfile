@@ -23,6 +23,7 @@ uvicorn = "*"
 [scripts]
 format = 'yapf --recursive -i'
 sort = 'isort -rc'
+lint = 'flake8'
 setup = 'python3 setup.py develop'
 api = 'uvicorn main:app --reload'
 
