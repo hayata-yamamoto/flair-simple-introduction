@@ -7,7 +7,7 @@ The purpose of this repository is to show flair usage, which I wrote on my artic
 ## Disclaimer
 
 
-**This repository is not OFFICIAL. If you wanna know flair itself, I recommend to look official github documentation.**
+**This repository is NOT OFFICIAL. If you wanna know flair itself, I recommend to look official github documentation.**
 
 ## Requirements
 
