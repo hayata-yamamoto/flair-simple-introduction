@@ -11,7 +11,7 @@ The purpose of this repository is to show flair usage, which I wrote on my artic
 
 ## Requirements
 
-> Python3.7.5+
+> Python3.7+
 
 ## Scripts
 
@@ -24,21 +24,19 @@ The purpose of this repository is to show flair usage, which I wrote on my artic
 Since Pipfile.lock is available, you just do 
 
 ```sh
-$ pip3 install pipenv 
-$ pipenv sync --dev
-$ pipenv run setup
+$ pip3 install pipenv && pipenv sync --dev && pipenv run setup
 ```
 
 **flair trial**
 
 ```sh
-$ pipenv run python src/train_model.py
+$ pipenv run flair-model
 ```
 
 **flair with sklearn**
 
 ```sh 
-$ pipenv run python src/use_embeddings.py
+$ pipenv run emb
 ```
 
 **launch api**

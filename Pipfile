@@ -24,7 +24,11 @@ format = 'yapf --recursive -i`'
 sort = 'isort -rc'
 lint = 'flake8'
 setup = 'python3 setup.py develop'
+
+# job scripts
 api = 'uvicorn main:app --reload'
+flair-model = "python3 src/train_model.py"
+emb = "python3 src/use_embeddings.py"
 
 [requires]
 python_version = "3.7"
