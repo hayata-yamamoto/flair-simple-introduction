@@ -36,7 +36,7 @@ itsdangerous==1.1.0
 jedi==0.15.1
 jinja2==2.10.3
 jmespath==0.9.4
-joblib==0.14.1
+joblib==1.2.0
 kiwisolver==1.1.0
 kytea==0.1.4
 langdetect==1.0.7
